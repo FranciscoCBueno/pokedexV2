@@ -18,13 +18,13 @@ export type Pokemon = {
   };
 };
 
-export async function fetchNationalDex(): Promise<DexItem[]> {
-  const res = await fetch(`${BASE_URL}/pokedex/national`);
+export async function fetchDex(dexName: string): Promise<DexItem[]> {
+  const res = await fetch(`${BASE_URL}/pokedex/${dexName}`);
   if (!res.ok) throw new Error(`Failed to fetch dex: ${res.status}`);
   const data: PokedexResponse = await res.json();
 
   return data.pokemon_entries.map((e) => ({
-    id: e.entry_number,
+    id: Number(e.pokemon_species.url.split("/").at(-2)),
     name: e.pokemon_species.name,
   }));
 }
