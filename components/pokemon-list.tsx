@@ -9,9 +9,11 @@ import { PokemonCard } from "./pokemon-card";
 export function PokemonList({
   dexName,
   typeName,
+  searchName,
 }: {
   dexName: string;
   typeName: string;
+  searchName: string;
 }) {
   const { data, isPending, isError, refetch } = useQuery({
     queryKey: ["pokedex", dexName],
@@ -19,8 +21,12 @@ export function PokemonList({
     staleTime: Infinity,
   });
 
+  const nameFilteredData = data?.filter((item) =>
+    item.name.includes(searchName),
+  );
+
   const pokemonQueries = useQueries({
-    queries: (data ?? []).map((item) => ({
+    queries: (nameFilteredData ?? []).map((item) => ({
       queryKey: ["pokemon", item.id],
       queryFn: () => fetchPokemon(item.id),
       staleTime: Infinity,
@@ -30,8 +36,8 @@ export function PokemonList({
 
   const filteredData =
     typeName === "all"
-      ? data
-      : data?.filter((item, index) =>
+      ? nameFilteredData
+      : nameFilteredData?.filter((item, index) =>
           pokemonQueries[index]?.data?.types.some(
             ({ type }) => type.name === typeName,
           ),
@@ -47,7 +53,7 @@ export function PokemonList({
 
   useEffect(() => {
     resetVisibleCount();
-  }, [dexName, typeName, resetVisibleCount]);
+  }, [dexName, typeName, searchName, resetVisibleCount]);
 
   useEffect(() => {
     const el = sentinelRef.current;
