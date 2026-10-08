@@ -2,11 +2,12 @@
 
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import Link from "next/link";
 import { fetchPokemon, type DexItem } from "@/lib/pokeapi";
 import { useColor } from "@/lib/colors/color-provider";
 import type { PokemonType } from "@/lib/colors/type-colors";
 
-export function PokemonCard({ id, name }: DexItem) {
+export function PokemonCard({ id, name, pokemonUrl, speciesUrl }: DexItem) {
   const { data, isPending, isError } = useQuery({
     queryKey: ["pokemon", id],
     queryFn: () => fetchPokemon(id),
@@ -28,7 +29,10 @@ export function PokemonCard({ id, name }: DexItem) {
   }
 
   return (
-    <div className="flex flex-col items-center gap-2 rounded-xl border border-gray-200 bg-gray-400 p-4 shadow-sm cursor-pointer transition-transform hover:scale-105 active:scale-98">
+    <Link
+      href={`/pokemon/${id}?pokemonUrl=${encodeURIComponent(pokemonUrl)}&speciesUrl=${encodeURIComponent(speciesUrl)}`}
+      className="flex flex-col items-center gap-2 rounded-xl border border-gray-200 bg-gray-400 p-4 shadow-sm cursor-pointer transition-transform hover:scale-105 active:scale-98"
+    >
       <span className="self-start text-xs text-white">
         #{String(id).padStart(4, "0")}
       </span>
@@ -54,6 +58,6 @@ export function PokemonCard({ id, name }: DexItem) {
           <TypeBadge key={type.name} type={type.name as PokemonType} />
         ))}
       </div>
-    </div>
+    </Link>
   );
 }
