@@ -4,6 +4,9 @@ import {
   fetchPokemonDetails,
   fetchSpeciesDetails,
 } from "@/lib/pokeapi";
+import { isPokemonType, type PokemonType } from "@/lib/colors/type-colors";
+import { TypeBadge } from "@/components/type-badge";
+import { PokemonStats } from "@/components/pokemon-stats";
 
 type PokemonPageProps = {
   searchParams: Promise<{ pokemonUrl?: string; speciesUrl?: string }>;
@@ -26,27 +29,29 @@ export default async function PokemonPage({
 
   const artwork = pokemon.sprites.other["official-artwork"].front_default;
   const name = pokemon.name;
+  const primaryType = pokemon.types[0]?.type.name;
+  const backgroundImage = isPokemonType(primaryType)
+    ? `url("/backgrounds/${primaryType}.webp")`
+    : undefined;
 
   return (
-    <main className="mx-auto flex max-w-6xl flex-col items-center gap-6">
-      <div className="flex-col">
-        <div className="flex w-fit items-center gap-4">
-          <Link href="/" className="self-start rounded bg-red-500 px-4 py-2 text-white">
+    <main
+      className="flex h-full p-2 bg-white bg-cover bg-no-repeat"
+      style={{ backgroundImage }}
+    >
+      <div className="flex-col p-2 h-fit w-1/3 bg-gray-200/50 backdrop-blur-sm rounded-lg">
+        <div className="flex w-full justify-between items-center gap-4 bg-gray-300 p-2 rounded-lg">
+          <Link href="/" className="self-start rounded-lg bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-500">
             Back
           </Link>
           <h1 className="text-2xl font-bold capitalize text-black">{name}</h1>
-          <div>
-            {pokemon.types.map((type, index) => (
-              <span
-                key={index}
-                className="mr-2 rounded bg-gray-200 px-2 py-1 text-sm capitalize"
-              >
-                {type.type.name}
-              </span>
+          <div className="flex min-h-6 gap-1">
+            {pokemon.types.map(({ type }) => (
+              <TypeBadge key={type.name} type={type.name as PokemonType} />
             ))}
           </div>
         </div>
-        <div>
+        <div className="flex justify-center">
           {artwork && (
             <Image
               src={artwork}
@@ -57,6 +62,7 @@ export default async function PokemonPage({
             />
           )}
         </div>
+        <PokemonStats stats={pokemon.stats} />
       </div>
     </main>
   );

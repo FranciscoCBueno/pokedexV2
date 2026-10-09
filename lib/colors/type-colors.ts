@@ -20,3 +20,7 @@ export const typeColors = {
 } as const;
 
 export type PokemonType = keyof typeof typeColors;
+
+export function isPokemonType(value: string): value is PokemonType {
+  return value in typeColors;
+}

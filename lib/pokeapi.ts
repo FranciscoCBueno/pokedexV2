@@ -17,8 +17,13 @@ type PokedexResponse = {
 export type Pokemon = {
   id: number;
   name: string;
-  types: { slot: number; type: { name: string } }[];
+  types: PokemonTypeEntry[];
   sprites: { front_default: string | null };
+};
+
+export type PokemonTypeEntry = {
+  slot: number;
+  type: { name: string; url: string };
 };
 
 type OfficialArtwork = {
@@ -32,73 +37,43 @@ type PokemonSprites = {
 };
 
 type PokemonDetailsResponse = {
-  abilities: [
-    {
-      is_hidden: boolean;
-      slot: number;
-      ability: { name: string; url: string };
-    }
-  ];
+  abilities: {
+    is_hidden: boolean;
+    slot: number;
+    ability: { name: string; url: string };
+  }[];
   base_experience: number;
   cries: { latest: string; legacy: string | null };
-  forms: [
-    {
-      name: string;
-      url: string;
-    }
-  ];
-  game_indices: [
-    {
-      game_index: number;
-      version: { name: string; url: string };
-    }
-  ];
+  forms: { name: string; url: string }[];
+  game_indices: { game_index: number; version: { name: string; url: string } }[];
   height: number;
-  held_items: [
-    {
-      item: { name: string; url: string };
-      version_details: [
-        {
-          rarity: number;
-          version: { name: string; url: string };
-        }
-      ];
-    }
-  ];
+  held_items: {
+    item: { name: string; url: string };
+    version_details: { rarity: number; version: { name: string; url: string } }[];
+  }[];
   id: number;
   is_default: boolean;
   location_area_encounters: string;
-  moves: [
-    {
-      move: { name: string; url: string };
-      version_group_details: [
-        {
-          level_learned_at: number;
-          version_group: { name: string; url: string };
-          move_learn_method: { name: string; url: string };
-        }
-      ];
-    }
-  ];
+  moves: {
+    move: { name: string; url: string };
+    version_group_details: {
+      level_learned_at: number;
+      version_group: { name: string; url: string };
+      move_learn_method: { name: string; url: string };
+    }[];
+  }[];
   name: string;
   past_abilities: unknown[];
   past_stats: unknown[];
   past_types: unknown[];
   species: { name: string; url: string };
   sprites: PokemonSprites;
-  stats: [
-    {
-      base_stat: number;
-      effort: number;
-      stat: { name: string; url: string };
-    }
-  ];
-  types: [
-    {
-      slot: number;
-      type: { name: string; url: string };
-    }
-  ];
+  stats: {
+    base_stat: number;
+    effort: number;
+    stat: { name: string; url: string };
+  }[];
+  types: PokemonTypeEntry[];
   weight: number;
 };
 

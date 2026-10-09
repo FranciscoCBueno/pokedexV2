@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { fetchPokemon, type DexItem } from "@/lib/pokeapi";
-import { useColor } from "@/lib/colors/color-provider";
 import type { PokemonType } from "@/lib/colors/type-colors";
+import { TypeBadge } from "./type-badge";
 
 export function PokemonCard({ id, name, pokemonUrl, speciesUrl }: DexItem) {
   const { data, isPending, isError } = useQuery({
@@ -15,18 +15,6 @@ export function PokemonCard({ id, name, pokemonUrl, speciesUrl }: DexItem) {
   });
 
   const artwork = data?.sprites.front_default;
-
-  function TypeBadge({ type }: { type: PokemonType }) {
-    const color = useColor("type", type);
-    return (
-        <span
-        className="rounded-lg px-2 content-center text-xs uppercase font-semibold text-white border-2 border-white"
-        style={{ backgroundColor: color }}
-        >
-        {type}
-        </span>
-    );
-  }
 
   return (
     <Link
