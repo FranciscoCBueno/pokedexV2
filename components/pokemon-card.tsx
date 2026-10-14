@@ -7,7 +7,7 @@ import { fetchPokemon, type DexItem } from "@/lib/pokeapi";
 import type { PokemonType } from "@/lib/colors/type-colors";
 import { TypeBadge } from "./type-badge";
 
-export function PokemonCard({ id, name, pokemonUrl, speciesUrl }: DexItem) {
+export function PokemonCard({ id, name }: DexItem) {
   const { data, isPending, isError } = useQuery({
     queryKey: ["pokemon", id],
     queryFn: () => fetchPokemon(id),
@@ -18,7 +18,7 @@ export function PokemonCard({ id, name, pokemonUrl, speciesUrl }: DexItem) {
 
   return (
     <Link
-      href={`/pokemon/${id}?pokemonUrl=${encodeURIComponent(pokemonUrl)}&speciesUrl=${encodeURIComponent(speciesUrl)}`}
+      href={`/pokemon/${id}`}
       className="flex flex-col items-center gap-2 rounded-xl border border-gray-200 bg-gray-400 p-4 shadow-sm cursor-pointer transition-transform hover:scale-105 active:scale-98"
     >
       <span className="self-start text-xs text-white">

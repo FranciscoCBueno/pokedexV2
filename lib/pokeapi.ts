@@ -1,5 +1,12 @@
 const BASE_URL = "https://pokeapi.co/api/v2";
 
+export function getPokemonApiUrls(id: number) {
+  return {
+    pokemonUrl: `${BASE_URL}/pokemon/${id}`,
+    speciesUrl: `${BASE_URL}/pokemon-species/${id}`,
+  };
+}
+
 export type DexItem = {
   id: number;
   name: string;
@@ -188,8 +195,7 @@ export async function fetchDex(dexName: string): Promise<DexItem[]> {
     return {
       id,
       name: entry.pokemon_species.name,
-      pokemonUrl: `${BASE_URL}/pokemon/${id}`,
-      speciesUrl: entry.pokemon_species.url,
+      ...getPokemonApiUrls(id),
     };
   });
 }
