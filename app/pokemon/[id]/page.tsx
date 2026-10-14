@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   fetchPokemonDetails,
@@ -8,6 +7,7 @@ import {
 import { isPokemonType, type PokemonType } from "@/lib/colors/type-colors";
 import { TypeBadge } from "@/components/type-badge";
 import { PokemonStats } from "@/components/pokemon-stats";
+import { PokemonArtwork } from "@/components/pokemon-artwork";
 
 type PokemonPageProps = {
   params: Promise<{ id: string }>;
@@ -30,7 +30,7 @@ export default async function PokemonPage({
   ]);
   void species;
 
-  const artwork = pokemon.sprites.other["official-artwork"].front_default;
+  const officialArtwork = pokemon.sprites.other["official-artwork"];
   const name = pokemon.name;
   const primaryType = pokemon.types[0]?.type.name;
   const backgroundImage = isPokemonType(primaryType)
@@ -54,17 +54,11 @@ export default async function PokemonPage({
             ))}
           </div>
         </div>
-        <div className="flex justify-center">
-          {artwork && (
-            <Image
-              src={artwork}
-              alt={name}
-              width={400}
-              height={400}
-              priority
-            />
-          )}
-        </div>
+        <PokemonArtwork
+          name={name}
+          artwork={officialArtwork.front_default}
+          shinyArtwork={officialArtwork.front_shiny}
+        />
         <PokemonStats stats={pokemon.stats} />
       </div>
     </main>
