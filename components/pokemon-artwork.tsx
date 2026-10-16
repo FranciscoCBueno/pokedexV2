@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { IoMdStar, IoMdStarOutline } from "react-icons/io";
 
 type PokemonArtworkProps = {
   name: string;
@@ -24,9 +25,9 @@ export function PokemonArtwork({
           type="button"
           onClick={() => setIsShiny((current) => !current)}
           disabled={!shinyArtwork}
-          className="rounded-lg bg-red-600 px-2 py-1 text-white transition-colors cursor-pointer hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-lg bg-red-600 px-2 py-2 text-white transition-colors cursor-pointer hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {isShiny ? "★" : "☆"}
+          {isShiny ? <IoMdStar/> : <IoMdStarOutline/>}
         </button>
       </div>
       {displayedArtwork && (
