@@ -33,6 +33,14 @@ export type PokemonTypeEntry = {
   type: { name: string; url: string };
 };
 
+export type PokemonTypeDetails = {
+  damage_relations: {
+    no_damage_from: { name: string; url: string }[];
+    half_damage_from: { name: string; url: string }[];
+    double_damage_from: { name: string; url: string }[];
+  };
+};
+
 type OfficialArtwork = {
   front_default: string | null;
   front_shiny: string | null;
@@ -203,6 +211,14 @@ export async function fetchDex(dexName: string): Promise<DexItem[]> {
 export async function fetchPokemon(id: number): Promise<Pokemon> {
   const res = await fetch(`${BASE_URL}/pokemon/${id}`);
   if (!res.ok) throw new Error(`Failed to fetch pokemon ${id}: ${res.status}`);
+  return res.json();
+}
+
+export async function fetchPokemonType(
+  url: string,
+): Promise<PokemonTypeDetails> {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to fetch Pokémon type: ${res.status}`);
   return res.json();
 }
 

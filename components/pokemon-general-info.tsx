@@ -4,6 +4,7 @@ import { PokemonGeneralBreeding } from "./pokemon-general-breeding";
 import { PokemonGeneralCries } from "./pokemon-general-cries";
 import { PokemonGeneralExperience } from "./pokemon-general-experience";
 import { PokemonGeneralSpecies } from "./pokemon-general-species";
+import { PokemonTypeEffectiveness } from "./pokemon-type-effectiveness";
 
 type PokemonGeneralInfoProps = {
   pokemon: PokemonDetails;
@@ -28,6 +29,7 @@ export function PokemonGeneralInfo({
         </div>
         <PokemonGeneralSpecies species={species} />
         <PokemonGeneralCries pokemon={pokemon} />
+        <PokemonTypeEffectiveness types={pokemon.types} />
       </div>
     </div>
   );
