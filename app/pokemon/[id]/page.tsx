@@ -9,6 +9,8 @@ import { TypeBadge } from "@/components/type-badge";
 import { PokemonStats } from "@/components/pokemon-stats";
 import { PokemonArtwork } from "@/components/pokemon-artwork";
 import { PokemonDetailTabs } from "@/components/pokemon-detail-tabs";
+import { PokemonEvolutionLine } from "@/components/pokemon-evolution-line";
+import { PokemonAlternateForms } from "@/components/pokemon-alternate-forms";
 
 type PokemonPageProps = {
   params: Promise<{ id: string }>;
@@ -24,11 +26,9 @@ export default async function PokemonPage({
     throw new Error("Invalid Pokémon ID");
   }
 
-  const { pokemonUrl, speciesUrl } = getPokemonApiUrls(pokemonId);
-  const [pokemon, species] = await Promise.all([
-    fetchPokemonDetails(pokemonUrl),
-    fetchSpeciesDetails(speciesUrl),
-  ]);
+  const { pokemonUrl } = getPokemonApiUrls(pokemonId);
+  const pokemon = await fetchPokemonDetails(pokemonUrl);
+  const species = await fetchSpeciesDetails(pokemon.species.url);
   const officialArtwork = pokemon.sprites.other["official-artwork"];
   const name = pokemon.name;
   const primaryType = pokemon.types[0]?.type.name;
@@ -41,8 +41,8 @@ export default async function PokemonPage({
       className="flex justify-between h-full p-2 bg-white bg-cover bg-no-repeat"
       style={{ backgroundImage }}
     >
-      <div className="flex-col w-fit gap-2">
-        <div className="flex-col p-2 h-fit w-full bg-gray-200/50 backdrop-blur-sm rounded-lg">
+      <div className="flex w-fit p-2 gap-4 bg-gray-200/50 backdrop-blur-sm rounded-lg">
+        <div className="flex-col h-fit w-full">
           <div className="flex w-full justify-between items-center gap-4 bg-gray-300 p-2 rounded-lg">
             <Link href="/" className="self-start rounded-lg bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-500">
               Back
@@ -54,12 +54,16 @@ export default async function PokemonPage({
               ))}
             </div>
           </div>
-        <PokemonArtwork
-          name={name}
-          artwork={officialArtwork.front_default}
-          shinyArtwork={officialArtwork.front_shiny}
-        />
-        <PokemonStats stats={pokemon.stats} />
+          <PokemonArtwork
+            name={name}
+            artwork={officialArtwork.front_default}
+            shinyArtwork={officialArtwork.front_shiny}
+          />
+          <PokemonStats stats={pokemon.stats} />
+        </div>
+        <div className="flex flex-col gap-4">
+          <PokemonEvolutionLine evolutionChainUrl={species.evolution_chain.url} />
+          <PokemonAlternateForms species={species} />
         </div>
       </div>
       <div className="w-fit">

@@ -41,6 +41,15 @@ export type PokemonTypeDetails = {
   };
 };
 
+export type EvolutionChainNode = {
+  species: { name: string; url: string };
+  evolves_to: EvolutionChainNode[];
+};
+
+export type EvolutionChain = {
+  chain: EvolutionChainNode;
+};
+
 type OfficialArtwork = {
   front_default: string | null;
   front_shiny: string | null;
@@ -110,6 +119,11 @@ type Genus = {
   language: { name: string; url: string };
 };
 
+export type SpeciesVariety = {
+  is_default: boolean;
+  pokemon: { name: string; url: string };
+};
+
 type SpeciesDetailsResponse = {
   base_happiness: number | null;
   capture_rate: number;
@@ -151,12 +165,7 @@ type SpeciesDetailsResponse = {
   ];
   pokedex_numbers: unknown[];
   shape: { name: string; url: string } | null;
-  varieties: [
-    {
-      is_default: boolean;
-      pokemon: { name: string; url: string };
-    }
-  ];
+  varieties: SpeciesVariety[];
   color: { name: string; url: string } | null;
 };
 
@@ -219,6 +228,16 @@ export async function fetchPokemonType(
 ): Promise<PokemonTypeDetails> {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch Pokémon type: ${res.status}`);
+  return res.json();
+}
+
+export async function fetchEvolutionChain(
+  url: string,
+): Promise<EvolutionChain> {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch evolution chain: ${res.status}`);
+  }
   return res.json();
 }
 
