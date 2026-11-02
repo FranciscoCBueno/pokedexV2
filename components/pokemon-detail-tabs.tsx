@@ -19,8 +19,8 @@ export function PokemonDetailTabs({
   const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>("General");
 
   return (
-    <section className="flex h-full w-full flex-1 flex-col rounded-lg px-2 text-black">
-      <div className="flex gap-2 rounded-lg bg-gray-300 p-2" role="tablist">
+    <section className="flex h-full flex-1 flex-col rounded-lg px-2 text-black">
+      <div className="flex w-full gap-2 rounded-lg bg-gray-300 p-2" role="tablist">
         {tabs.map((tab) => (
           <button
             key={tab}

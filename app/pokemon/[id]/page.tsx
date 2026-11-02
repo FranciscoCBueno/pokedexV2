@@ -38,11 +38,11 @@ export default async function PokemonPage({
 
   return (
     <main
-      className="flex justify-between h-full p-2 bg-white bg-cover bg-no-repeat"
+      className="flex h-[calc(100vh-3.75rem)] min-h-0 w-full justify-between gap-2 overflow-hidden bg-white bg-cover bg-no-repeat p-2"
       style={{ backgroundImage }}
     >
-      <div className="flex w-fit p-2 gap-4 bg-gray-200/50 backdrop-blur-sm rounded-lg">
-        <div className="flex-col h-fit w-full">
+      <div className="flex min-h-0 w-fit gap-4 overflow-hidden rounded-lg bg-gray-200/50 p-2 backdrop-blur-sm">
+        <div className="flex min-h-0 w-fit flex-col overflow-y-auto">
           <div className="flex w-full justify-between items-center gap-4 bg-gray-300 p-2 rounded-lg">
             <Link href="/" className="self-start rounded-lg bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-500">
               Back
@@ -61,12 +61,12 @@ export default async function PokemonPage({
           />
           <PokemonStats stats={pokemon.stats} />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex min-h-0 max-w-64 flex-col gap-4 overflow-y-auto">
           <PokemonEvolutionLine evolutionChainUrl={species.evolution_chain.url} />
           <PokemonAlternateForms species={species} />
         </div>
       </div>
-      <div className="w-fit">
+      <div className="flex min-h-0 min-w-0 max-w-1/2 flex-1">
         <PokemonDetailTabs pokemon={pokemon} species={species} />
       </div>
     </main>
