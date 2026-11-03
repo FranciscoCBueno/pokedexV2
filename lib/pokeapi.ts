@@ -41,6 +41,16 @@ export type PokemonTypeDetails = {
   };
 };
 
+export type PokemonMoveDetails = {
+  accuracy: number | null;
+  damage_class: { name: string; url: string };
+  name: string;
+  power: number | null;
+  pp: number | null;
+  priority: number;
+  type: { name: string; url: string };
+};
+
 export type EvolutionChainNode = {
   species: { name: string; url: string };
   evolves_to: EvolutionChainNode[];
@@ -228,6 +238,14 @@ export async function fetchPokemonType(
 ): Promise<PokemonTypeDetails> {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch Pokémon type: ${res.status}`);
+  return res.json();
+}
+
+export async function fetchPokemonMove(
+  url: string,
+): Promise<PokemonMoveDetails> {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to fetch Pokémon move: ${res.status}`);
   return res.json();
 }
 

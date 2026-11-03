@@ -42,7 +42,7 @@ export function PokemonDetailTabs({
         {activeTab === "General" && (
           <PokemonGeneralInfo pokemon={pokemon} species={species} />
         )}
-        {activeTab === "Moves" && <PokemonMoves />}
+        {activeTab === "Moves" && <PokemonMoves pokemon={pokemon} />}
       </div>
     </section>
   );
