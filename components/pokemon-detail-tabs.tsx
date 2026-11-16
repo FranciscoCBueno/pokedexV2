@@ -3,9 +3,10 @@
 import { useState } from "react";
 import type { PokemonDetails, SpeciesDetails } from "@/lib/pokeapi";
 import { PokemonGeneralInfo } from "./pokemon-general-info";
+import { PokemonLocations } from "./pokemon-locations";
 import { PokemonMoves } from "./pokemon-moves";
 
-const tabs = ["General", "Moves"] as const;
+const tabs = ["General", "Moves", "Locations"] as const;
 
 type PokemonDetailTabsProps = {
   pokemon: PokemonDetails;
@@ -43,6 +44,7 @@ export function PokemonDetailTabs({
           <PokemonGeneralInfo pokemon={pokemon} species={species} />
         )}
         {activeTab === "Moves" && <PokemonMoves pokemon={pokemon} />}
+        {activeTab === "Locations" && <PokemonLocations pokemon={pokemon} />}
       </div>
     </section>
   );

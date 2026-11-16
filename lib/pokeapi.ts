@@ -51,6 +51,20 @@ export type PokemonMoveDetails = {
   type: { name: string; url: string };
 };
 
+export type PokemonLocationAreaEncounters = {
+  location_area: { name: string; url: string };
+  version_details: {
+    encounter_details: {
+      chance: number;
+      max_level: number;
+      min_level: number;
+      method: { name: string; url: string };
+    }[];
+    max_chance: number;
+    version: { name: string; url: string };
+  }[];
+}[];
+
 export type EvolutionChainNode = {
   species: { name: string; url: string };
   evolves_to: EvolutionChainNode[];
@@ -246,6 +260,16 @@ export async function fetchPokemonMove(
 ): Promise<PokemonMoveDetails> {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch Pokémon move: ${res.status}`);
+  return res.json();
+}
+
+export async function fetchPokemonLocationAreaEncounters(
+  url: string,
+): Promise<PokemonLocationAreaEncounters> {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch Pokémon location encounters: ${res.status}`);
+  }
   return res.json();
 }
 
