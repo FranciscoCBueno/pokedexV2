@@ -41,8 +41,8 @@ export default async function PokemonPage({
       className="flex h-[calc(100vh-3.75rem)] min-h-0 w-full justify-between gap-2 overflow-hidden bg-white bg-cover bg-no-repeat p-2"
       style={{ backgroundImage }}
     >
-      <div className="flex min-h-0 w-fit gap-4 overflow-hidden rounded-lg bg-gray-200/50 p-2 backdrop-blur-sm">
-        <div className="flex min-h-0 w-fit flex-col overflow-y-auto">
+      <div className="flex min-h-0 w-fit gap-2 overflow-hidden">
+        <div className="flex min-h-0 w-fit flex-col overflow-y-auto rounded-lg bg-gray-200/50 p-2 backdrop-blur-sm">
           <div className="flex w-full justify-between items-center gap-4 bg-gray-300 p-2 rounded-lg">
             <Link href="/" className="self-start rounded-lg bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-500">
               Back
@@ -56,12 +56,14 @@ export default async function PokemonPage({
           </div>
           <PokemonArtwork
             name={name}
+            genus={species.genera?.genus}
+            id={pokemon.id}
             artwork={officialArtwork.front_default}
             shinyArtwork={officialArtwork.front_shiny}
           />
           <PokemonStats stats={pokemon.stats} />
         </div>
-        <div className="flex min-h-0 max-w-64 flex-col gap-4 overflow-y-auto">
+        <div className="flex min-h-0 max-w-64 flex-col gap-4 overflow-y-auto rounded-lg bg-gray-200/50 p-2 backdrop-blur-sm">
           <PokemonEvolutionLine evolutionChainUrl={species.evolution_chain.url} />
           <PokemonAlternateForms species={species} />
         </div>

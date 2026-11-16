@@ -6,12 +6,16 @@ import { IoMdStar, IoMdStarOutline } from "react-icons/io";
 
 type PokemonArtworkProps = {
   name: string;
+  genus: string | undefined;
+  id: number;
   artwork: string | null;
   shinyArtwork: string | null;
 };
 
 export function PokemonArtwork({
   name,
+  genus,
+  id,
   artwork,
   shinyArtwork,
 }: PokemonArtworkProps) {
@@ -20,7 +24,7 @@ export function PokemonArtwork({
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex w-full pt-2">
+      <div className="flex w-full items-center justify-between pt-2">
         <button
           type="button"
           onClick={() => setIsShiny((current) => !current)}
@@ -29,6 +33,9 @@ export function PokemonArtwork({
         >
           {isShiny ? <IoMdStar/> : <IoMdStarOutline/>}
         </button>
+        <p className="text-right text-sm text-black bg-gray-200/50 px-2 py-1 rounded-xl">
+          {genus ?? "Unknown genus"} · #{id}
+        </p>
       </div>
       {displayedArtwork && (
         <Image
