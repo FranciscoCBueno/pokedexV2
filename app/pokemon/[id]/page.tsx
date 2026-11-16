@@ -58,6 +58,8 @@ export default async function PokemonPage({
             name={name}
             genus={species.genera?.genus}
             id={pokemon.id}
+            isLegendary={species.is_legendary}
+            isMythical={species.is_mythical}
             artwork={officialArtwork.front_default}
             shinyArtwork={officialArtwork.front_shiny}
           />
