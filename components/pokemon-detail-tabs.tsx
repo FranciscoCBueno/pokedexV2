@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import type { PokemonDetails, SpeciesDetails } from "@/lib/pokeapi";
+import type { PokemonDetails } from "@/lib/types/pokemon";
+import type { SpeciesDetails } from "@/lib/types/species";
 import { PokemonGeneralInfo } from "./pokemon-general-info";
 import { PokemonLocations } from "./pokemon-locations";
 import { PokemonMoves } from "./pokemon-moves";

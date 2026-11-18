@@ -1,6 +1,6 @@
 import { IconContext } from "react-icons";
 import { IoMdFemale, IoMdMale } from "react-icons/io";
-import type { SpeciesDetails } from "@/lib/pokeapi";
+import type { SpeciesDetails } from "@/lib/types/species";
 
 type Props = {
   species: SpeciesDetails;

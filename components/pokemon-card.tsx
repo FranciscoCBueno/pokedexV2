@@ -3,7 +3,8 @@
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchPokemon, type DexItem } from "@/lib/pokeapi";
+import { fetchPokemon } from "@/lib/pokeapi";
+import type { DexItem } from "@/lib/types/dex";
 import type { PokemonType } from "@/lib/colors/type-colors";
 import { TypeBadge } from "./type-badge";
 

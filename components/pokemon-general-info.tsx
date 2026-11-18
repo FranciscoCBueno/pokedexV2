@@ -1,4 +1,5 @@
-import type { PokemonDetails, SpeciesDetails } from "@/lib/pokeapi";
+import type { PokemonDetails } from "@/lib/types/pokemon";
+import type { SpeciesDetails } from "@/lib/types/species";
 import { PokemonGeneralAbilities } from "./pokemon-general-abilities";
 import { PokemonGeneralBreeding } from "./pokemon-general-breeding";
 import { PokemonGeneralCries } from "./pokemon-general-cries";

@@ -1,11 +1,9 @@
 "use client";
 
 import { useQueries } from "@tanstack/react-query";
-import {
-  fetchPokemonType,
-  type PokemonDetails,
-  type PokemonTypeDetails,
-} from "@/lib/pokeapi";
+import { fetchPokemonType } from "@/lib/pokeapi";
+import type { PokemonDetails } from "@/lib/types/pokemon";
+import type { PokemonTypeDetails } from "@/lib/types/pokemon-type";
 import { useColor } from "@/lib/colors/color-provider";
 import { type PokemonType, typeColors } from "@/lib/colors/type-colors";
 

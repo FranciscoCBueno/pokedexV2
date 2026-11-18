@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   fetchPokemonDetails,
-  type SpeciesDetails,
 } from "@/lib/pokeapi";
+import type { SpeciesDetails } from "@/lib/types/species";
 
 type PokemonAlternateFormsProps = {
   species: SpeciesDetails;

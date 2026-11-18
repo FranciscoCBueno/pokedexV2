@@ -4,8 +4,8 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   fetchPokemonLocationAreaEncounters,
-  type PokemonDetails,
 } from "@/lib/pokeapi";
+import type { PokemonDetails } from "@/lib/types/pokemon";
 
 type PokemonLocationsProps = {
   pokemon: PokemonDetails;

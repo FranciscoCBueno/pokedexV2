@@ -4,8 +4,8 @@ import {
   fetchEvolutionChain,
   fetchPokemonDetails,
   getPokemonApiUrls,
-  type EvolutionChainNode,
 } from "@/lib/pokeapi";
+import type { EvolutionChainNode } from "@/lib/types/evolution";
 
 type PokemonEvolutionLineProps = {
   evolutionChainUrl: string;

@@ -4,9 +4,9 @@ import { useMemo, useState } from "react";
 import { useQueries } from "@tanstack/react-query";
 import {
   fetchPokemonMove,
-  type PokemonDetails,
-  type PokemonMoveDetails,
 } from "@/lib/pokeapi";
+import type { PokemonDetails } from "@/lib/types/pokemon";
+import type { PokemonMoveDetails } from "@/lib/types/pokemon-move";
 import { isPokemonType, type PokemonType } from "@/lib/colors/type-colors";
 import { TypeBadge } from "./type-badge";
 import { IoArrowUpCircleOutline } from "react-icons/io5";

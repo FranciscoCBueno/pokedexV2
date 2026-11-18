@@ -1,4 +1,5 @@
-import type { PokemonDetails, SpeciesDetails } from "@/lib/pokeapi";
+import type { PokemonDetails } from "@/lib/types/pokemon";
+import type { SpeciesDetails } from "@/lib/types/species";
 
 type Props = {
   pokemon: PokemonDetails;

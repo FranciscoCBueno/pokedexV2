@@ -1,3 +1,19 @@
+import type { DexItem, PokedexResponse } from "@/lib/types/dex";
+import type { EvolutionChain } from "@/lib/types/evolution";
+import type { PokemonLocationAreaEncounters } from "@/lib/types/pokemon-location";
+import type { PokemonMoveDetails } from "@/lib/types/pokemon-move";
+import type {
+  Pokemon,
+  PokemonDetails,
+  PokemonDetailsResponse,
+  PokemonSprites,
+} from "@/lib/types/pokemon";
+import type { PokemonTypeDetails } from "@/lib/types/pokemon-type";
+import type {
+  SpeciesDetails,
+  SpeciesDetailsResponse,
+} from "@/lib/types/species";
+
 const BASE_URL = "https://pokeapi.co/api/v2";
 
 export function getPokemonApiUrls(id: number) {
@@ -6,206 +22,6 @@ export function getPokemonApiUrls(id: number) {
     speciesUrl: `${BASE_URL}/pokemon-species/${id}`,
   };
 }
-
-export type DexItem = {
-  id: number;
-  name: string;
-  pokemonUrl: string;
-  speciesUrl: string;
-};
-
-type PokedexResponse = {
-  pokemon_entries: {
-    entry_number: number;
-    pokemon_species: { name: string; url: string };
-  }[];
-};
-
-export type Pokemon = {
-  id: number;
-  name: string;
-  types: PokemonTypeEntry[];
-  sprites: { front_default: string | null };
-};
-
-export type PokemonTypeEntry = {
-  slot: number;
-  type: { name: string; url: string };
-};
-
-export type PokemonTypeDetails = {
-  damage_relations: {
-    no_damage_from: { name: string; url: string }[];
-    half_damage_from: { name: string; url: string }[];
-    double_damage_from: { name: string; url: string }[];
-  };
-};
-
-export type PokemonMoveDetails = {
-  accuracy: number | null;
-  damage_class: { name: string; url: string };
-  name: string;
-  power: number | null;
-  pp: number | null;
-  priority: number;
-  type: { name: string; url: string };
-};
-
-export type PokemonLocationAreaEncounters = {
-  location_area: { name: string; url: string };
-  version_details: {
-    encounter_details: {
-      chance: number;
-      max_level: number;
-      min_level: number;
-      method: { name: string; url: string };
-    }[];
-    max_chance: number;
-    version: { name: string; url: string };
-  }[];
-}[];
-
-export type EvolutionChainNode = {
-  species: { name: string; url: string };
-  evolves_to: EvolutionChainNode[];
-};
-
-export type EvolutionChain = {
-  chain: EvolutionChainNode;
-};
-
-type OfficialArtwork = {
-  front_default: string | null;
-  front_shiny: string | null;
-};
-
-type PokemonSprites = {
-  other?: { "official-artwork"?: OfficialArtwork };
-  [sprite: string]: unknown;
-};
-
-type PokemonDetailsResponse = {
-  abilities: {
-    is_hidden: boolean;
-    slot: number;
-    ability: { name: string; url: string };
-  }[];
-  base_experience: number;
-  cries: { latest: string; legacy: string | null };
-  forms: { name: string; url: string }[];
-  game_indices: { game_index: number; version: { name: string; url: string } }[];
-  height: number;
-  held_items: {
-    item: { name: string; url: string };
-    version_details: { rarity: number; version: { name: string; url: string } }[];
-  }[];
-  id: number;
-  is_default: boolean;
-  location_area_encounters: string;
-  moves: {
-    move: { name: string; url: string };
-    version_group_details: {
-      level_learned_at: number;
-      version_group: { name: string; url: string };
-      move_learn_method: { name: string; url: string };
-    }[];
-  }[];
-  name: string;
-  past_abilities: unknown[];
-  past_stats: unknown[];
-  past_types: unknown[];
-  species: { name: string; url: string };
-  sprites: PokemonSprites;
-  stats: {
-    base_stat: number;
-    effort: number;
-    stat: { name: string; url: string };
-  }[];
-  types: PokemonTypeEntry[];
-  weight: number;
-};
-
-export type PokemonDetails = Omit<
-  PokemonDetailsResponse,
-  "past_abilities" | "past_stats" | "past_types" | "sprites"
-> & {
-  sprites: { other: { "official-artwork": OfficialArtwork } };
-};
-
-type FlavorTextEntry = {
-  flavor_text: string;
-  language: { name: string; url: string };
-  version: { name: string; url: string };
-};
-
-type Genus = {
-  genus: string;
-  language: { name: string; url: string };
-};
-
-export type SpeciesVariety = {
-  is_default: boolean;
-  pokemon: { name: string; url: string };
-};
-
-type SpeciesDetailsResponse = {
-  base_happiness: number | null;
-  capture_rate: number;
-  egg_groups: [
-    {
-      name: string;
-      url: string;
-    }
-  ];
-  evolution_chain: { url: string };
-  evolves_from_species: { name: string; url: string } | null;
-  flavor_text_entries: FlavorTextEntry[];
-  form_descriptions: [
-    {
-      description: string;
-    }
-  ];
-  forms_switchable: boolean;
-  gender_rate: number;
-  genera: Genus[];
-  generation: { name: string; url: string };
-  growth_rate: { name: string; url: string };
-  habitat: { name: string; url: string } | null;
-  has_gender_differences: boolean;
-  hatch_counter: number;
-  id: number;
-  is_baby: boolean;
-  is_legendary: boolean;
-  is_mythical: boolean;
-  name: string;
-  names: unknown[];
-  order: number;
-  pal_park_encounters: [
-    {
-      base_score: number;
-      rate: number;
-      area: { name: string; url: string };
-    }
-  ];
-  pokedex_numbers: unknown[];
-  shape: { name: string; url: string } | null;
-  varieties: SpeciesVariety[];
-  color: { name: string; url: string } | null;
-};
-
-export type SpeciesDetails = Omit<
-  SpeciesDetailsResponse,
-  | "order"
-  | "has_gender_differences"
-  | "pokedex_numbers"
-  | "color"
-  | "names"
-  | "flavor_text_entries"
-  | "genera"
-> & {
-  flavor_text_entries: FlavorTextEntry | undefined;
-  genera: Genus | undefined;
-};
 
 function latestEnglish<T extends { language: { name: string } }>(
   entries: T[],

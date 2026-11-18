@@ -1,4 +1,4 @@
-import type { SpeciesDetails } from "@/lib/pokeapi";
+import type { SpeciesDetails } from "@/lib/types/species";
 
 type Props = {
   species: SpeciesDetails;
